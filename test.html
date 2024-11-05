@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Categories Layout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-info {
+            padding: 15px;
+        }
+
+        .category-info h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .category-info p {
+            margin: 5px 0;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="gridContainer"></div>
+
+<script>
+    // Define data for each category with layout details
+    const categories = [
+        { title: "Stock Video", count: "6.7M+", image: "stock-video.jpg", columnStart: 1, columnSpan: 1, row: 1 },
+        { title: "Video Templates", count: "120,000+", image: "video-templates.jpg", columnStart: 2, columnSpan: 2, row: 1 },
+        { title: "Stock Photos", count: "11.1M+", image: "stock-photos.jpg", columnStart: 1, columnSpan: 1, row: 2 },
+        { title: "Royalty-Free Music", count: "190,000+", image: "royalty-free-music.jpg", columnStart: 2, columnSpan: 1, row: 2 },
+        { title: "Sound Effects", count: "770,000+", image: "sound-effects.jpg", columnStart: 3, columnSpan: 1, row: 2 },
+        { title: "Graphic Templates", count: "320,000+", image: "graphic-templates.jpg", columnStart: 1, columnSpan: 1, row: 3 },
+        { title: "Fonts", count: "56,000+", image: "fonts.jpg", columnStart: 2, columnSpan: 1, row: 3 },
+        { title: "Graphics", count: "210,000+", image: "graphics.jpg", columnStart: 3, columnSpan: 1, row: 3 },
+        { title: "Add-ons", count: "28,000+", image: "add-ons.jpg", columnStart: 1, columnSpan: 1, row: 4 },
+        { title: "All Categories", count: "All available assets", image: "all-categories.jpg", columnStart: 2, columnSpan: 2, row: 4 }
+    ];
+
+    // Get the container element
+    const container = document.getElementById("gridContainer");
+
+    // Function to create a card element
+    function createCard(category) {
+        const card = document.createElement("div");
+        card.classList.add("category-card");
+
+        // Set grid position using style attributes
+        card.style.gridColumn = `${category.columnStart} / span ${category.columnSpan}`;
+        card.style.gridRow = category.row;
+
+        // Populate card with image and text
+        card.innerHTML = `
+            <img src="${category.image}" alt="${category.title}">
+            <div class="category-info">
+                <h3>${category.title}</h3>
+                <p>${category.count}</p>
+            </div>
+        `;
+
+        return card;
+    }
+
+    // Add each category card to the container
+    categories.forEach(category => {
+        const card = createCard(category);
+        container.appendChild(card);
+    });
+</script>
+
+</body>
+</html>
